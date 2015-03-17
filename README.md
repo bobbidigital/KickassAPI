@@ -66,3 +66,13 @@ Latest().list()
 #pages(), all() and list() can't be followed by any other method!
 
 ```
+
+###Problems on a Mac?###
+
+Do you have Anaconda installed? If so I've run into a weird issue with it being installed on a Mac. I had to remove Anaconda from my PATH variable and then execute a reinstall of lxml.
+
+	pip install --upgrade --force-reinstall lxml
+
+You might have to also install the XCode command line utilites for Yosemite
+	xcode-select --install
+
