@@ -1,2 +1,5 @@
 *.pyc
 dist/
+*.sw?
+venv/
+build/

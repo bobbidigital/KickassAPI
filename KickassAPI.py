@@ -60,8 +60,8 @@ class Torrent(namedtuple("Torrent", ["name", "author", "verified_author",
         """
         Prints name, author, size and age
         """
-        print "%s by %s, size: %s, uploaded %s ago" % (self.name, self.author,
-                                                       self.size, self.age)
+        print(("%s by %s, size: %s, uploaded %s ago" % (self.name, self.author,
+                                                       self.size, self.age)))
 
 
 class Url(object):
@@ -205,7 +205,7 @@ class Results(object):
         """
         Parse url and yield namedtuple Torrent for every torrent on page
         """
-        torrents = map(self._get_torrent, self._get_rows())
+        torrents = list(map(self._get_torrent, self._get_rows()))
 
         for t in torrents:
             yield t
@@ -214,7 +214,7 @@ class Results(object):
         """
         Return list of Torrent namedtuples
         """
-        torrents = map(self._get_torrent, self._get_rows())
+        torrents = list(map(self._get_torrent, self._get_rows()))
 
         return torrents
 
@@ -254,9 +254,9 @@ class Results(object):
         html = requests.get(self.url.build()).text
         pq = PyQuery(html)
         rows = pq("table.data").find("tr")
-        return map(rows.eq, range(rows.size()))[1:]
+        return map(rows.eq, list(range(rows.size())))[1:]
 
-    def next(self):
+    def __next__(self):
         """
         Increment page by one and return self
         """
@@ -287,7 +287,7 @@ class Results(object):
 
         size = (page_to + 1) - page_from
         threads = ret = []
-        page_list = range(page_from, page_to+1)
+        page_list = list(range(page_from, page_to+1))
 
         locks = [threading.Lock() for i in range(size)]
 
