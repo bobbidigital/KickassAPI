@@ -254,7 +254,7 @@ class Results(object):
         html = requests.get(self.url.build()).text
         pq = PyQuery(html)
         rows = pq("table.data").find("tr")
-        return map(rows.eq, list(range(rows.size())))[1:]
+        return list(map(rows.eq, list(range(rows.size()))))[1:]
 
     def __next__(self):
         """
